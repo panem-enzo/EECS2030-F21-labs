@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class Log {
 
-	String version;
-	String[] fixes;
 	int numFixes;
 	final int MAX_FIXES = 10;
+	String[] fixes = new String[MAX_FIXES];
+	String version;
 	
 	public Log(String version) {
 		this.version = version;
@@ -28,11 +28,11 @@ public class Log {
 		
 		for (int i = 0; i < numFixes; i++) {
 			
-			if (i > 0) {
-				fixString += fixes[i] + ", ";
+			if (numFixes == 0 || i == numFixes-1) {
+				fixString += fixes[i];
 			}
 			else {
-				fixString += fixes[i];
+				fixString += fixes[i] + ", ";
 			}
 			
 		}
@@ -44,11 +44,9 @@ public class Log {
 	
 	public void addFix(String fix) {
 		
-		for (int i = 0; i < MAX_FIXES; i++) {
-			
-		}
-		
+		fixes[numFixes] = fix;
 		numFixes++;
+		
 	}
 
 	@Override

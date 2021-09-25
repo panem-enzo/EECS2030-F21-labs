@@ -119,6 +119,7 @@ public class StarterTests {
 		 * Note the white spaces appearing after commas (,).  
 		 */
 		assertEquals("[Addressed writing lag issues, Fixed a bug about dismissing menus]", appUpdate.getFixes());
+		assertEquals("[Addressed writing lag issues, Fixed a bug about dismissing menus]", appUpdate.getFixes());
 		assertEquals("Version 5.7.31 contains 2 fixes [Addressed writing lag issues, Fixed a bug about dismissing menus]", appUpdate.toString()); 
 	}
 	
