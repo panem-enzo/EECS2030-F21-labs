@@ -30,6 +30,7 @@ public class Log {
 		
 		String fixString = "[";
 		
+		// Implementing "array bracket appearance" with for loop in a string data type
 		for (int i = 0; i < numFixes; i++) {
 			
 			if (numFixes == 0 || i == numFixes-1) {
