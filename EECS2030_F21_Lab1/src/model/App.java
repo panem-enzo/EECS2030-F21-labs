@@ -93,7 +93,6 @@ public class App {
 		numRatings++;
 		numAvgRating = (score1 + (score2 * 2.0) + (score3 * 3.0) + (score4 * 4.0) + (score5 * 5.0))/numRatings;
 		this.avgRating = String.format("%.1f", numAvgRating);
-		// String.format("%.1f", numAvgRating)
 		
 		ratingReport = "Average of " + numRatings + " ratings: " + this.avgRating + " (Score 5: "
 				+ score5 + ", Score 4: " + score4 + ", Score 3: " + score3 + ", Score 2: " + score2 + ", Score 1: "
