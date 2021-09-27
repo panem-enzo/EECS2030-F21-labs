@@ -2,20 +2,23 @@ package model;
 
 public class App {
 
-	int maxRatings;
+	int numRatings;
 	int numUpdates = 0;
-	int[] ratings = new int[maxRatings]; 
+	int maxRatings = 15;
+	int[] ratings = new int[5];
 	final int MAX_UPDATE_LOGS = 20;
 	String name;
 	String ratingReport = "No ratings submitted so far!";
 	String update = "n/a";
 	String avgRating = "n/a";
+	String currentVersion = "n/a";
 	Log[] updateHistory = new Log[MAX_UPDATE_LOGS];
 
 	public App(String name, int maxRatings) {
+
 		this.name = name;
 		this.maxRatings = maxRatings;
-		
+
 	}
 
 	public String getName() {
@@ -24,13 +27,11 @@ public class App {
 
 	public String getWhatIsNew() {
 
-		String currentVersion = "n/a";
-		
 		if (numUpdates > 0) {
-			currentVersion = updateHistory[numUpdates-1].toString();
+			this.currentVersion = updateHistory[numUpdates - 1].toString();
 		}
 
-		return currentVersion;
+		return this.currentVersion;
 	}
 
 	public Log[] getUpdateHistory() {
@@ -40,18 +41,17 @@ public class App {
 
 		// "Trimming" the updateHistory array to remove null lengths
 		if (numUpdates > 0) {
-			
+
 			for (int i = 0; i < numUpdates; i++) {
 				trimUpdateHistory[i] = updateHistory[i];
 			}
 
 			updateHistory = trimUpdateHistory;
-			
-		}
-		else {
+
+		} else {
 			updateHistory = emptyUpdateHistory;
 		}
-		
+
 		return this.updateHistory;
 	}
 
@@ -83,16 +83,21 @@ public class App {
 
 	}
 
-	public void addFix(String fix) {
-
-	}
-	
 	public void submitRating(int rating) {
+
+		ratings[rating - 1]++;
+
+		double numAvgRating;
+		int score1 = ratings[0], score2 = ratings[1], score3 = ratings[2], score4 = ratings[3], score5 = ratings[4];
+
+		numRatings++;
+		numAvgRating = (score1 + (score2 * 2.0) + (score3 * 3.0) + (score4 * 4.0) + (score5 * 5.0))/numRatings;
+		this.avgRating = String.format("%.1f", numAvgRating);
+		// String.format("%.1f", numAvgRating)
 		
-		double ratingAvg = 0;
-		
-		this.ratings[rating]++;
-		this.ratingReport = "Average of " + + " ratings: " + ;
+		ratingReport = "Average of " + numRatings + " ratings: " + this.avgRating + " (Score 5: "
+				+ score5 + ", Score 4: " + score4 + ", Score 3: " + score3 + ", Score 2: " + score2 + ", Score 1: "
+				+ score1 + ")";
 		
 	}
 
