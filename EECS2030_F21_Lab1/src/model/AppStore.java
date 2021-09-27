@@ -2,55 +2,97 @@ package model;
 
 public class AppStore {
 
-	int maxNumApps;
+	int numApps = 0;
+	int numStableApps = 0;
+	int numUpdates = 0;
 	String branch;
-	String[] stableApps = new String[maxNumApps];
-	
+	String[] stableApps = new String[numApps];
+	App[] apps;
+
 	public AppStore(String branch, int maxNumApps) {
-		
+
 		this.branch = branch;
-		this.maxNumApps = maxNumApps;
-		
+		this.apps = new App[maxNumApps];
+
 	}
-	
+
 	public String getBranch() {
 		return this.branch;
 	}
-	
+
 	public App getApp(String name) {
-		
+
 		App app = null;
-		
-		return app; 
+
+		// Borrowed "search" implementation from getVersionInfo() in App class
+
+		if (numApps != 0) {
+			
+			for (int i = 0; i < numApps; i++) {
+
+				if (apps[i].getName().equals(name)) {
+					app = apps[i];
+				}
+
+			}
+			
+		}
+
+		return app;
 	}
-	
-	public String[] getStableApps(int number) {
-		
+
+	public String[] getStableApps(int numUpdates) {
+
 		String[] emptyStableApps = new String[0];
-		String[] trimStableApps = new String[maxNumApps];
+		App[] newStableApps = new App[numApps];
 
-		// "Trimming" the updateHistory array to remove null lengths
-		if (stableApps.length > 0) {
+		// Borrowed "trimming" method from getUpdateHistory() in App class
 
-			for (int i = 0; i < stableApps.length; i++) {
-				trimStableApps[i] = stableApps[i];
+		if (numApps == 0) {
+
+			stableApps = emptyStableApps;
+
+		} else if (this.numUpdates != numUpdates) {
+
+			//Determining the amount of stable apps based on the number (update versions).
+			
+			for (int i = 0; i < numApps; i++) {
+				
+				if (apps[i].getUpdateHistory().length >= numUpdates) {
+					newStableApps[numStableApps] = apps[i];
+					numStableApps++;
+					this.numUpdates++;
+				}
+				
 			}
 
-			stableApps = trimStableApps;
+			stableApps = new String[numStableApps];
+			int count = 0;
+			
+			for (int i = 0; i < numStableApps; i++) {
+				
+				if (newStableApps[i] == null) {
+					continue;
+				}
+				
+				stableApps[count] = newStableApps[i].getName() + " (" + newStableApps[i].numUpdates + " versions; Current Version: Version " + 
+				newStableApps[i].getUpdateHistory()[newStableApps[i].numUpdates-1].getVersion() + " contains " + newStableApps[i].getUpdateHistory()[newStableApps[i].numUpdates-1].getNumberOfFixes() 
+				+ " fixes " + newStableApps[i].getUpdateHistory()[newStableApps[i].numUpdates-1].getFixes() + ")";
+				
+				count++;
+			}
 
-		} else {
-			stableApps = emptyStableApps;
 		}
 
 		return this.stableApps;
-		
-	}
-	
-	public void addApp(App app) {
-		
-	}
-	
-	
-	
-}
 
+	}
+
+	public void addApp(App app) {
+
+		apps[numApps] = app;
+		numApps++;
+
+	}
+
+}

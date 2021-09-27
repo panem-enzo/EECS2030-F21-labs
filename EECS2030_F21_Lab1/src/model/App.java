@@ -102,7 +102,18 @@ public class App {
 
 	@Override
 	public String toString() {
-		return name + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
+		
+		String info = name + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
+		
+		// Alternative that shows number of versions
+		
+//		if (updateHistory.length > 1) {
+//			info = name + " (" + updateHistory.length + " versions; Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
+//		} else {
+//			info = name + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
+//		}
+		
+		return info;
 	}
 
 }
