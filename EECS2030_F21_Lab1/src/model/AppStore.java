@@ -55,6 +55,7 @@ public class AppStore {
 		} else if (this.numUpdates != numUpdates) {
 
 			//Determining the amount of stable apps based on the number (update versions).
+			this.numUpdates = 0;
 			
 			for (int i = 0; i < numApps; i++) {
 				
