@@ -105,14 +105,6 @@ public class App {
 		
 		String info = name + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
 		
-		// Alternative that shows number of versions
-		
-//		if (updateHistory.length > 1) {
-//			info = name + " (" + updateHistory.length + " versions; Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
-//		} else {
-//			info = name + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
-//		}
-		
 		return info;
 	}
 

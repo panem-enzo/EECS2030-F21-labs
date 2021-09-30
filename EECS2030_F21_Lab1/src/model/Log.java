@@ -7,10 +7,6 @@ public class Log {
 	String[] fixes = new String[MAX_FIXES];
 	String version;
 	
-	public Log() {
-		
-	}
-	
 	public Log(String version) {
 		this.version = version;
 	}
