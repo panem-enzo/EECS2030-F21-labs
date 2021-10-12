@@ -2,55 +2,51 @@ package model;
 
 public class Log {
 
+	String versionNum;
+	String[] fixes = new String[10];
 	int numFixes;
-	final int MAX_FIXES = 10;
-	String[] fixes = new String[MAX_FIXES];
-	String version;
-	
-	public Log(String version) {
-		this.version = version;
+
+	public Log(String versionNum) {
+		this.versionNum = versionNum;
 	}
-	
+
 	public String getVersion() {
-		return this.version;
+		return this.versionNum;
 	}
-	
+
 	public int getNumberOfFixes() {
-		
 		return this.numFixes;
 	}
-	
+
 	public String getFixes() {
-		
+
 		String fixString = "[";
-		
-		// Implementing "array bracket appearance" with for loop in a string data type
+
 		for (int i = 0; i < numFixes; i++) {
-			
-			if (numFixes == 0 || i == numFixes-1) {
+
+			if (i == numFixes - 1) {
 				fixString += fixes[i];
-			}
-			else {
+			} else {
 				fixString += fixes[i] + ", ";
 			}
-			
+
 		}
-		
+
 		fixString += "]";
-		
+
+		System.out.println(fixString);
+
 		return fixString;
 	}
 	
 	public void addFix(String fix) {
-		
-		fixes[numFixes] = fix;
-		numFixes++;
-		
+		this.fixes[numFixes] = fix;
+		numFixes++;	
 	}
 
 	@Override
 	public String toString() {
-		return "Version " + version + " contains " + numFixes + " fixes " + getFixes();
+		return "Version " + getVersion() + " contains " + getNumberOfFixes() + " fixes " +  getFixes();
 	}
 	
 	

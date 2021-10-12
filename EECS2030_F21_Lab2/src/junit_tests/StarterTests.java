@@ -246,6 +246,7 @@ public class StarterTests {
 			assertEquals("North York General Hospital has 5 available doses: <3 doses of Moderna, 2 doses of Pfizer/BioNTech>", vs.toString());
 			
 			vs.addDistribution(v1, 1); 
+			vs.getDistribution(); //REMOVE
 			assertEquals("North York General Hospital has 6 available doses: <4 doses of Moderna, 2 doses of Pfizer/BioNTech>", vs.toString());
 			
 			vs.addDistribution(v3, 1); /* 1st distribution of AZ */

@@ -2,110 +2,114 @@ package model;
 
 public class App {
 
+	String appName;
+	int numUpdates;
 	int numRatings;
-	int numUpdates = 0;
-	int maxRatings = 15;
-	int[] ratings = new int[5];
-	final int MAX_UPDATE_LOGS = 20;
-	String name;
-	String ratingReport = "No ratings submitted so far!";
-	String update = "n/a";
-	String avgRating = "n/a";
-	String currentVersion = "n/a";
-	Log[] updateHistory = new Log[MAX_UPDATE_LOGS];
+	Log[] updates = new Log[20];
+	int[] ratings;
+	String avgStr = "n/a";
 
-	public App(String name, int maxRatings) {
-
-		this.name = name;
-		this.maxRatings = maxRatings;
-
+	public App(String appName, int maxRatings) {
+		this.appName = appName;
+		this.ratings = new int[maxRatings];
 	}
 
 	public String getName() {
-		return this.name;
+		return this.appName;
 	}
 
 	public String getWhatIsNew() {
 
-		if (numUpdates > 0) {
-			this.currentVersion = updateHistory[numUpdates - 1].toString();
+		String latestVersion = "n/a";
+
+		if (numUpdates != 0) {
+			latestVersion = updates[numUpdates-1].toString();
 		}
 
-		return this.currentVersion;
+		return latestVersion;
 	}
 
 	public Log[] getUpdateHistory() {
 
-		Log[] emptyUpdateHistory = new Log[0];
-		Log[] trimUpdateHistory = new Log[numUpdates];
+		Log[] updateHistory = new Log[numUpdates];
 
-		// "Trimming" the updateHistory array to remove null lengths
-		if (numUpdates > 0) {
-
-			for (int i = 0; i < numUpdates; i++) {
-				trimUpdateHistory[i] = updateHistory[i];
-			}
-
-			updateHistory = trimUpdateHistory;
-
-		} else {
-			updateHistory = emptyUpdateHistory;
+		for (int i = 0; i < numUpdates; i++) {
+			updateHistory[i] = updates[i];
 		}
 
-		return this.updateHistory;
+		return updateHistory;
 	}
 
-	public Log getVersionInfo(String version) {
+	public void releaseUpdate(String versionNum) {
+		updates[numUpdates] = new Log(versionNum);
+		numUpdates++;
+	}
 
-		Log log = null;
+	public Log getVersionInfo(String versionNum) {
 
-		// Search through updateHistory for log with version number
-		for (int i = 0; i < updateHistory.length; i++) {
+		Log versionInfo = null;
 
-			if (updateHistory[i].getVersion().equals(version)) {
-				log = updateHistory[i];
+		for (int i = 0; i < numUpdates; i++) {
+			if (updates[i].getVersion().equals(versionNum)) {
+				versionInfo = updates[i];
 			}
-
 		}
 
-		return log;
+		return versionInfo;
 	}
 
 	public String getRatingReport() {
-		return this.ratingReport;
-	}
 
-	public void releaseUpdate(String version) {
+		String ratingReport = "No ratings submitted so far!";
+		double sum = 0, average = 0;
+		int score[] = new int[5];
 
-		Log log = new Log(version);
-		updateHistory[numUpdates] = log;
-		numUpdates++;
+		// "Average of 1 ratings: 3.0 (Score 5: 0, Score 4: 0, Score 3: 1, Score 2: 0,
+		// Score 1: 0)"
 
+		if (numRatings != 0) {
+
+			for (int i = 0; i < numRatings; i++) {
+				sum += ratings[i];
+
+				if (ratings[i] == 1) {
+					score[4]++;
+				} else if (ratings[i] == 2) {
+					score[3]++;
+				} else if (ratings[i] == 3) {
+					score[2]++;
+				} else if (ratings[i] == 4) {
+					score[1]++;
+				} else if (ratings[i] == 5) {
+					score[0]++;
+				}
+			}
+
+			average = sum / numRatings;
+			this.avgStr = String.format("%.1f", average);
+
+			ratingReport = "Average of " + numRatings + " ratings: " + String.format("%.1f", average) + " (Score 5: "
+					+ score[0] + "," + " Score 4: " + score[1] + "," + " Score 3: " + score[2] + "," + " Score 2: "
+					+ score[3] + "," + " Score 1: " + score[4] + ")";
+			
+		} else {
+			ratingReport = "No ratings submitted so far!";
+		}
+		
+		return ratingReport;
+		
 	}
 
 	public void submitRating(int rating) {
-
-		ratings[rating - 1]++;
-
-		double numAvgRating;
-		int score1 = ratings[0], score2 = ratings[1], score3 = ratings[2], score4 = ratings[3], score5 = ratings[4];
-
+		ratings[numRatings] = rating;
 		numRatings++;
-		numAvgRating = (score1 + (score2 * 2.0) + (score3 * 3.0) + (score4 * 4.0) + (score5 * 5.0))/numRatings;
-		this.avgRating = String.format("%.1f", numAvgRating);
-		
-		ratingReport = "Average of " + numRatings + " ratings: " + this.avgRating + " (Score 5: "
-				+ score5 + ", Score 4: " + score4 + ", Score 3: " + score3 + ", Score 2: " + score2 + ", Score 1: "
-				+ score1 + ")";
-		
 	}
 
 	@Override
 	public String toString() {
+		//"GoodNotes 5 (Current Version: n/a; Average Rating: n/a)\"
 		
-		String info = name + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + avgRating + ")";
-		
-		return info;
+		return this.appName + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + this.avgStr + ")";
 	}
 
 }

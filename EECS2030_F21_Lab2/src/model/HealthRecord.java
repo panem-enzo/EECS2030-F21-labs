@@ -48,6 +48,7 @@ public class HealthRecord {
 
 	public String getAppointmentStatus() {
 
+		//NOT YET IMPLEMENTED
 		String appointmentStatus = "No vaccination appointment for " + this.patient + " yet";
 		return appointmentStatus;
 		
