@@ -252,6 +252,7 @@ public class StarterTests {
 			assertEquals("North York General Hospital has 7 available doses: <4 doses of Moderna, 2 doses of Pfizer/BioNTech, 1 doses of Oxford/AstraZeneca>", vs.toString());
 			
 			vs.addDistribution(v2, 3);
+			vs.getDistribution(); //REMOVE
 			assertEquals("North York General Hospital has 10 available doses: <4 doses of Moderna, 5 doses of Pfizer/BioNTech, 1 doses of Oxford/AstraZeneca>", vs.toString());
 		}
 		catch(UnrecognizedVaccineCodeNameException e) {

@@ -21,6 +21,10 @@ public class VaccineDistribution {
 	public void addDoses(int doses) {
 		this.doses += doses;
 	}
+	
+	public void takeDose() {
+		this.doses--;
+	}
 
 
 	@Override

@@ -3,15 +3,16 @@ package model;
 public class HealthRecord {
 
 	private String patient;
-	private int limitDoses;
+	private String vaccinationSite;
 	private int numEntries;
-	private int numAppointments;
+	private int numAppointment;
 	private String[] vaccinationHistory;
+	private boolean pass;
 
 	public HealthRecord(String patient, int limitDoses) {
 		this.patient = patient;
-		this.limitDoses = limitDoses;
-		this.vaccinationHistory = new String[this.limitDoses];
+		this.vaccinationHistory = new String[limitDoses];
+		this.pass = true;
 	}
 
 	public String getVaccinationReceipt() {
@@ -47,13 +48,30 @@ public class HealthRecord {
 	}
 
 	public String getAppointmentStatus() {
-
-		//NOT YET IMPLEMENTED
+		
 		String appointmentStatus = "No vaccination appointment for " + this.patient + " yet";
+		
+		if (numAppointment != 0) {
+			
+			if (this.pass == true) {
+				appointmentStatus = "Last vaccination appointment for " + this.patient + " with " + this.vaccinationSite + " succeeded";
+			} else if (this.pass == false) {
+				appointmentStatus = "Last vaccination appointment for " + this.patient + " with " + this.vaccinationSite + " failed";
+			} 
+			
+		}
+		
 		return appointmentStatus;
 		
 	}
-
+	
+	public void appointmentTest(boolean pass, String vaccinationSite) {
+		this.pass = pass;
+		this.vaccinationSite = vaccinationSite;
+		this.numAppointment++;
+		
+	}
+	
 	public void addRecord(Vaccine vaccine, String vaccinationSite, String date) {
 
 		this.vaccinationHistory[numEntries] = vaccine.toString() + " in " + vaccinationSite + " on " + date;
