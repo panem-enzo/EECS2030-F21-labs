@@ -7,11 +7,13 @@ public class VaccinationSite {
 	private int numDistribution;
 	private int numEntries;
 	private int numAppointment;
+	private int numAdministered;
+	private int administerCount;
 	private int numNonDistributed;
 	private VaccineDistribution[] distribution;
 	private VaccineDistribution[] trimVaccineDistribution;
 	private HealthRecord[] appointment;
-	private boolean adminstered = false;
+	private boolean administered = false;
 
 	public VaccinationSite(String vaccinationSite, int limitDose) {
 		this.vaccinationSite = vaccinationSite;
@@ -61,7 +63,7 @@ public class VaccinationSite {
 		this.numAppointment++;
 		this.numNonDistributed++;
 		
-		if (this.numNonDistributed > this.numDistribution) {
+		if (this.numNonDistributed == 0 || this.numNonDistributed > this.numDistribution) {
 			healthRecord.appointmentTest(false, this.vaccinationSite);
 			throw new InsufficientVaccineDosesException(healthRecord.getAppointmentStatus());
 		} else {
@@ -72,17 +74,18 @@ public class VaccinationSite {
 
 	public void administer(String date) {
 		
-		int k = 0;
-		this.adminstered = true;
+		this.administered = true;
 		
-		for (int i = 0; i < this.numAppointment; i++) {
+		for (int i = numAdministered; i < this.numAppointment; i++) {
 			
-			this.appointment[i].addRecord(this.trimVaccineDistribution[k].getVaccine(), this.vaccinationSite, date);
-			this.trimVaccineDistribution[k].takeDose();
+			this.appointment[i].addRecord(this.trimVaccineDistribution[administerCount].getVaccine(), this.vaccinationSite, date);
+			this.trimVaccineDistribution[this.administerCount].takeDose();
 			this.numDistribution--;
+			this.numNonDistributed--;
+			this.numAdministered++;
 			
-			if (this.trimVaccineDistribution[k].getDoses() == 0) {
-				k++;
+			if (this.trimVaccineDistribution[this.administerCount].getDoses() == 0) {
+				this.administerCount++;
 			}
 			
 		}
@@ -98,7 +101,7 @@ public class VaccinationSite {
 			return none;
 		}
 		
-		if (this.adminstered == true) {
+		if (this.administered == true) {
 			return this.trimVaccineDistribution;
 		}
 		
