@@ -25,8 +25,6 @@ public class VaccineDistribution {
 
 	@Override
 	public String toString() {
-		//"10000 doses of mRNA-1273 by Moderna"
-		
 		return this.doses + " doses of " + this.vaccine.getCodeName() + " by " + this.vaccine.getManufacturer();
 	}
 
