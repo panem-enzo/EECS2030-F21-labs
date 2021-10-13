@@ -11,6 +11,7 @@ public class VaccinationSite {
 	private VaccineDistribution[] distribution;
 	private VaccineDistribution[] trimVaccineDistribution;
 	private HealthRecord[] appointment;
+	private boolean adminstered = false;
 
 	public VaccinationSite(String vaccinationSite, int limitDose) {
 		this.vaccinationSite = vaccinationSite;
@@ -72,6 +73,7 @@ public class VaccinationSite {
 	public void administer(String date) {
 		
 		int k = 0;
+		this.adminstered = true;
 		
 		for (int i = 0; i < this.numAppointment; i++) {
 			
@@ -94,6 +96,10 @@ public class VaccinationSite {
 		if (numEntries == 0) {
 			VaccineDistribution[] none = new VaccineDistribution[0];
 			return none;
+		}
+		
+		if (this.adminstered == true) {
+			return this.trimVaccineDistribution;
 		}
 		
 		int[] duplicate = new int[numEntries];
