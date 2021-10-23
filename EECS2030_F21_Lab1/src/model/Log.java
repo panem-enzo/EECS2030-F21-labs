@@ -1,53 +1,51 @@
 package model;
 
 public class Log {
-
-	String versionNum;
-	String[] fixes = new String[10];
-	int numFixes;
-
-	public Log(String versionNum) {
-		this.versionNum = versionNum;
-	}
-
-	public String getVersion() {
-		return this.versionNum;
-	}
-
-	public int getNumberOfFixes() {
-		return this.numFixes;
-	}
-
-	public String getFixes() {
-
-		String fixString = "[";
-
-		for (int i = 0; i < numFixes; i++) {
-
-			if (i == numFixes - 1) {
-				fixString += fixes[i];
-			} else {
-				fixString += fixes[i] + ", ";
-			}
-
-		}
-
-		fixString += "]";
-
-		System.out.println(fixString);
-
-		return fixString;
+	
+	private String version;
+	
+	/* programming pattern (Part 2 review tutorial */
+	private String[] fixes;
+	private int nof; // number of fixes
+	private final int MAX_NUM_OF_FIXES = 100;
+	
+	public Log(String version) {
+		this.version = version;
+		this.fixes = new String[MAX_NUM_OF_FIXES];
+		this.nof = 0;
 	}
 	
 	public void addFix(String fix) {
-		this.fixes[numFixes] = fix;
-		numFixes++;	
+		this.fixes[this.nof] = fix;
+		this.nof++;
 	}
-
-	@Override
+	
+	public String getVersion() {
+		return this.version;
+	}
+	
+	public int getNumberOfFixes() {
+		return this.nof;
+	}
+	public String getFixes() {
+		
+		String s = "";
+		
+		s += "[";
+		
+		for(int i = 0; i < this.nof; i++) {
+			s += this.fixes[i];
+			if (i < this.nof - 1) {
+				s += ", ";
+			}
+		}
+		
+		s += "]";
+		
+		return s;
+	}
+	
 	public String toString() {
-		return "Version " + getVersion() + " contains " + getNumberOfFixes() + " fixes " +  getFixes();
+		return String.format("Version %s contains %d fixes %s", this.version, this.getNumberOfFixes(), this.getFixes());
 	}
-	
-	
 }

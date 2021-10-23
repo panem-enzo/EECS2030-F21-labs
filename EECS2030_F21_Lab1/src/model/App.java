@@ -1,115 +1,153 @@
 package model;
 
 public class App {
-
-	String appName;
-	int numUpdates;
-	int numRatings;
-	Log[] updates = new Log[20];
-	int[] ratings;
-	String avgStr = "n/a";
-
-	public App(String appName, int maxRatings) {
-		this.appName = appName;
-		this.ratings = new int[maxRatings];
+	
+	private Log[] updates;
+	private int nou; 
+	private final int MAX_NUM_OF_UPDATES = 20;
+	
+	private int[] ratings;
+	private int nor; /* number of ratings */
+	
+	private String name;
+	
+	public App(String name, int maxNumOfRatings) {
+		this.name = name;
+		this.updates = new Log[MAX_NUM_OF_UPDATES];
+		this.nou = 0;
+		
+		this.ratings = new int[maxNumOfRatings];
+		this.nor = 0;
 	}
-
+	
+	/* see addEntry method in Part 2 of review tutorial */
+	
+	public void releaseUpdate(String version) {
+		Log nu = new Log(version);
+		this.updates[this.nou] = nu;
+		this.nou ++;
+	}
+	
+	public void submitRating(int score) {
+		this.ratings[this.nor] = score;
+		this.nor++;
+	}
+	
 	public String getName() {
-		return this.appName;
+		return this.name;
 	}
-
+	
 	public String getWhatIsNew() {
-
-		String latestVersion = "n/a";
-
-		if (numUpdates != 0) {
-			latestVersion = updates[numUpdates-1].toString();
-		}
-
-		return latestVersion;
-	}
-
-	public Log[] getUpdateHistory() {
-
-		Log[] updateHistory = new Log[numUpdates];
-
-		for (int i = 0; i < numUpdates; i++) {
-			updateHistory[i] = updates[i];
-		}
-
-		return updateHistory;
-	}
-
-	public void releaseUpdate(String versionNum) {
-		updates[numUpdates] = new Log(versionNum);
-		numUpdates++;
-	}
-
-	public Log getVersionInfo(String versionNum) {
-
-		Log versionInfo = null;
-
-		for (int i = 0; i < numUpdates; i++) {
-			if (updates[i].getVersion().equals(versionNum)) {
-				versionInfo = updates[i];
-			}
-		}
-
-		return versionInfo;
-	}
-
-	public String getRatingReport() {
-
-		String ratingReport = "No ratings submitted so far!";
-		double sum = 0, average = 0;
-		int score[] = new int[5];
-
-		// "Average of 1 ratings: 3.0 (Score 5: 0, Score 4: 0, Score 3: 1, Score 2: 0,
-		// Score 1: 0)"
-
-		if (numRatings != 0) {
-
-			for (int i = 0; i < numRatings; i++) {
-				sum += ratings[i];
-
-				if (ratings[i] == 1) {
-					score[4]++;
-				} else if (ratings[i] == 2) {
-					score[3]++;
-				} else if (ratings[i] == 3) {
-					score[2]++;
-				} else if (ratings[i] == 4) {
-					score[1]++;
-				} else if (ratings[i] == 5) {
-					score[0]++;
-				}
-			}
-
-			average = sum / numRatings;
-			this.avgStr = String.format("%.1f", average);
-
-			ratingReport = "Average of " + numRatings + " ratings: " + String.format("%.1f", average) + " (Score 5: "
-					+ score[0] + "," + " Score 4: " + score[1] + "," + " Score 3: " + score[2] + "," + " Score 2: "
-					+ score[3] + "," + " Score 1: " + score[4] + ")";
-			
+		
+		String s = "";
+		
+		if (this.nou == 0) {
+			s = "n/a";
 		} else {
-			ratingReport = "No ratings submitted so far!";
+			s = this.updates[this.nou - 1].toString(); // Last element in the array
 		}
 		
-		return ratingReport;
+		return s;
+	}
+	
+	/* See: getEntries() in Review Series Part 2*/
+	
+	public Log[] getUpdateHistory() {
+		
+		Log[] uh = new Log[this.nou];
+		
+		for (int i = 0; i < this.nou; i++) {
+			uh[i] = this.updates[i];
+		}
+		
+		return uh;
+	}
+	
+	/* See getProduct() in Review Series Part 2 */
+	
+	public Log getVersionInfo(String version) {
+		
+		Log result = null;
+		boolean foundMatch = false;
+		
+		for (int i = 0; i < this.nou && !foundMatch; i++) {
+			Log l = this.updates[i];
+			if (this.updates[i].getVersion().equals(version)) {
+				result = l;
+				foundMatch = true;
+			}
+		}
+		
+		return result;
+	}
+	
+	public String getRatingReport() {
+		
+		String report = "";
+		
+		if (this.nor == 0 ) {
+			report = "No ratings submitted so far!";
+		} else {
+
+			int numberOf5 = 0;
+			int numberOf4 = 0;
+			int numberOf3 = 0;
+			int numberOf2 = 0;
+			int numberOf1 = 0;
+			
+			for (int i = 0; i < this.nor; i++) {
+				int score = this.ratings[i];
+				
+				if (score == 5) {
+					numberOf5 ++;
+				} else if (score == 4) {
+					numberOf4 ++;
+				} else if (score == 3) {
+					numberOf3 ++;
+				} else if (score == 2) {
+					numberOf2 ++;
+				} else if (score == 1) {
+					numberOf1 ++;
+				}
+				
+			}
+	
+			String avgS = this.getFormattedAvg();
+			
+			report = String.format("Average of %d ratings: %s (Score 5: %d, Score 4: %d, Score 3: %d, Score 2: %d, Score 1: %d)", this.nor, avgS, numberOf5, numberOf4, numberOf3, numberOf2, numberOf1);
+			
+		}		
+		
+		return report;
+	}
+	
+	private String getFormattedAvg() {
+	
+		int total = 0;
+		
+		for (int i = 0; i < this.nor; i++) {
+			
+			int score = this.ratings[i];
+			total += score;
+			
+		}
+		
+		double avg = ((double) total) / this.nor;
+		String avgS = String.format("%.1f", avg);
+		return avgS;
 		
 	}
-
-	public void submitRating(int rating) {
-		ratings[numRatings] = rating;
-		numRatings++;
-	}
-
-	@Override
+	
 	public String toString() {
-		//"GoodNotes 5 (Current Version: n/a; Average Rating: n/a)\"
+		String avgS = "";
 		
-		return this.appName + " (Current Version: " + getWhatIsNew() + "; Average Rating: " + this.avgStr + ")";
+		if(this.nor == 0) {
+			avgS = "n/a";
+		} else {
+			avgS = this.getFormattedAvg();
+		}
+		
+		return String.format("%s (Current Version: %s; Average Rating: %s)", this.name, this.getWhatIsNew().toString(), avgS);
 	}
-
+	
 }

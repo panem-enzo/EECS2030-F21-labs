@@ -2,77 +2,141 @@ package model;
 
 public class Account {
 
-	String accountName;
-	AppStore appstore;
-	App[] apps = new App[50];
-	int numApps;
-	String status;
-	
-	public Account(String accountName, AppStore appstore) {
-		this.accountName = accountName;
-		this.appstore = appstore;
+	private String status;
+	private String name;
+	private AppStore store;
+
+	private String[] namesOfDownloadedApps;
+	private int noa; /* number of downlaods*/
+
+	public Account(String name, AppStore appStore) {
+		this.name = name;
+		this.store = appStore;
+		this.namesOfDownloadedApps = new String[50];
+		this.noa = 0;
+
+		this.status = String.format("An account linked to the %s store is created for %s.", appStore.getBranch(), name);
 	}
-	
-	public String[] getNamesOfDownloadedApps() {
+
+	public void download(String nameOfApp) {
 		
-		String[] namesOfDownloadedApps = new String[numApps];
-		
-		for (int i = 0; i < numApps; i++) {
-			namesOfDownloadedApps[i] = apps[i].getName();
+		boolean nameExists = false;
+		for (int i = 0; i < this.noa && !nameExists; i++) {
+			if(this.namesOfDownloadedApps[i].equals(nameOfApp)) {
+				nameExists = true;
+			}
 		}
 		
-		return namesOfDownloadedApps;
-	}
-	
-	public App[] getObjectsOfDownloadedApps() {
-		
-		App[] newApps = new App[numApps];
-		
-		for (int i=0; i < numApps; i++) {
-			newApps[i] = apps[i];
-		}
-		
-		return newApps;
-	}
-	
-	public void uninstall(String appName) {
-		
-		App[] trimApps = new App[numApps];
-		int count = 0;
-		
-		if (numApps != 0) {
+		if (nameExists) {
+			this.status = String.format("Error: %s has already been downloaded for %s.", nameOfApp, this.name);
+		} else {
+			this.namesOfDownloadedApps[this.noa] = nameOfApp;
+			this.noa++;
 			
-			for (int i=0; i < apps.length; i++) {
-				if (!(apps[i].getName().equals(appName))) {
-					trimApps[count] = apps[i];
-					count++;
+			this.status = String.format("%s is successfully downloaded for %s.", nameOfApp, this.name);
+		}
+		
+	}
+
+	public void submitRating(String nameOfApp, int score) {
+
+		boolean nameExists = false;
+		for (int i = 0; i < this.noa && !nameExists; i++) {
+			if(this.namesOfDownloadedApps[i].equals(nameOfApp)) {
+				nameExists = true;
+			}
+		}
+		
+		if (nameExists) {
+			
+			this.getApp(nameOfApp).submitRating(score);
+			
+			this.status = String.format("Rating score %d of %s is successfully submitted for %s.", score, this.name, nameOfApp);
+		} else {
+			this.status = String.format("Error: %s is not a downloaded app for %s.", nameOfApp, this.name);
+		}
+
+	}
+
+	public void switchStore(AppStore store) {
+		this.store = store;
+		this.status = String.format("Account for %s is now linked to the %s store.", this.name, store.getBranch());
+
+	}
+
+	public void uninstall(String nameOfApp) {
+		// check to see if `nameOfApp` is the name of a downloaded app.
+		// if non-existing, do nothing.
+		// if existing, remove the app.
+
+		// Initially, when an account is first created, no apps have been downloaded,
+		// so therefore nothing can be uninstalled.
+		boolean nameExists = false;
+		for (int i = 0; i < this.noa && !nameExists; i++) {
+			if(this.namesOfDownloadedApps[i].equals(nameOfApp)) {
+				nameExists = true;
+			}
+		}
+		
+		if (nameExists) {
+			//Exercise remove the nameOfApp from the namesOfDownloadedApps array
+			// See the visual hints.
+			
+			int index = 0;
+			boolean found = false;
+			
+			for (int i = 0; i < this.noa && found == false; i++) {
+				if (this.namesOfDownloadedApps[i].equals(nameOfApp)) {
+					this.namesOfDownloadedApps[i] = null;
+					index = i;
+					found = true;
 				}
 			}
 			
-			this.apps = trimApps;
+			for (int i = index; i < this.noa-1; i ++) {
+				this.namesOfDownloadedApps[i] = this.namesOfDownloadedApps[i+1];
+			}
 			
+			this.noa--;
+			this.status = String.format("%s is successfully uninstalled for %s.", nameOfApp, this.name);
+			
+		} else {
+			this.status = String.format("Error: %s has not been downloaded for %s.", nameOfApp, this.name);
 		}
-		
-		
-	}
-	
-	public void submitRating(String appName, int rating) {
-		
-	}
-	
-	public void switchStore(AppStore appstore) {
-		this.appstore = appstore;
-	}
-	
-	public void download(String appName) {
-		apps[numApps] = this.appstore.getApp(appName);
-		numApps++;
+
 	}
 
-	@Override
-	public String toString() {
-		return "An account linked to the " + appstore.getBranch() + " store is created for " + this.accountName + ".";
+	public String[] getNamesOfDownloadedApps() {
+
+		String[] names = new String[this.noa];
+
+		for (int i = 0; i < this.noa; i++) {
+			names[i] = this.namesOfDownloadedApps[i];
+		}
+
+		return names;
 	}
-	
-	
+
+	public App[] getObjectsOfDownloadedApps() {
+		
+		App[] apps = new App[this.noa];
+		
+		for (int i = 0; i < this.noa; i ++) {
+			String nameOfApp = this.namesOfDownloadedApps[i];
+			App app = this.getApp(nameOfApp);
+			apps[i] = app;
+		}
+		
+		return apps;
+	}
+
+	// Given the name of app, find its corresponding app object in the linked store.
+	private App getApp(String nameOfApp) {
+		
+		return this.store.getApp(nameOfApp);
+	}
+
+	public String toString() {
+		return this.status;
+	}
 }
