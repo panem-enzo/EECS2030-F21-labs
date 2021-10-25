@@ -3,6 +3,10 @@ package junit_tests;
 import static org.junit.Assert.*;
 
 import org.junit.Test;
+import model.Unit;
+import model.Floor;
+import model.Blueprint;
+import model.InsufficientFloorSpaceException;
 
 /*
  * Requirement: Any classes you create must reside in the `model` package and be imported properly.
