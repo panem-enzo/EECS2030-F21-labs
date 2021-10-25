@@ -20,6 +20,10 @@ public class Unit {
 		this.conversion = 0.3048;
 
 	}
+	
+	public Unit (Unit other) {
+		this (other.function, other.width, other.length);
+	}
 
 	public void toogleMeasurement() {
 

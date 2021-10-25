@@ -13,6 +13,18 @@ public class Floor {
 		this.capacity = capacity;
 
 	}
+	
+	public Floor (Floor other) {
+		
+		this (other.capacity);
+		other.utilizedSpace = this.nou;
+		other.nou = this.nou;
+		
+		for (int i = 0; i < nou; i ++) {
+			this.units[i] = new Unit(other.units[i].getFunction(), other.units[i].getWidth(), other.units[i].getLength());
+		}
+		
+	}
 
 	public void addUnit(String function, double width, double length) throws InsufficientFloorSpaceException{
 
