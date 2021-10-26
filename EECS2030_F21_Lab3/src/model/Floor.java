@@ -17,8 +17,9 @@ public class Floor {
 	public Floor (Floor other) {
 		
 		this (other.capacity);
-		other.utilizedSpace = this.nou;
-		other.nou = this.nou;
+
+		this.utilizedSpace = other.utilizedSpace;
+		this.nou = other.nou;
 		
 		for (int i = 0; i < nou; i ++) {
 			this.units[i] = new Unit(other.units[i].getFunction(), other.units[i].getWidth(), other.units[i].getLength());
