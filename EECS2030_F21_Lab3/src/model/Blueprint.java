@@ -14,6 +14,13 @@ public class Blueprint {
 	//copy constructor
 	public Blueprint(Blueprint other) {
 		
+		this (other.numFloor);
+		this.nof = other.nof;
+		
+		for (int i = 0; i < this.nof; i ++) {
+			this.floors[i] = new Floor(other.floors[i]);
+		}
+		
 	}
 	 
 	public void addFloorPlan(Floor floor) {
@@ -31,7 +38,11 @@ public class Blueprint {
 		
 		return newFloors;
 	}
-
+	
+//	public int getNumFloorsAdded() {
+//		return this.nof;
+//	}
+// 
 	@Override
 	public String toString() {
 		
