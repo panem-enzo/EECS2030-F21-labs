@@ -55,8 +55,48 @@ public class Floor {
 		
 		Floor other = (Floor) obj;
 		
-		return this.capacity == other.capacity && this.utilizedSpace == other.utilizedSpace;
+		boolean utilizedTheSame = true;
 		
+		// Check how many instances of the current unit exist in the same array (including itself)
+		for (int i = 0; i < this.nou && utilizedTheSame; i ++) {
+			
+			int currentCount = 1, otherCount = 0;
+			
+			for (int j = i+1; j < this.nou - 1; j ++) {
+				
+				
+				if (this.units[i].equals(this.units[j])) {
+					currentCount ++;
+				}
+			}
+			
+			
+			//Check which ones in this array are equal to other array
+			for (int k = 0; k < this.nou; k ++) {
+				
+				//skip its own index
+				if (k != i) {
+					if (this.units[i].equals(other.getUnits()[k])) {
+						otherCount ++;
+					}
+				}
+				
+			}
+			
+			if (currentCount != otherCount) {
+				utilizedTheSame = false;
+			} 
+			
+		}
+		
+		return this.capacity == other.capacity && utilizedTheSame;
+		
+//		return this.capacity == other.capacity && this.utilizedSpace == other.utilizedSpace;
+		
+	}
+	
+	public Unit[] getUnits() {
+		return this.units;
 	}
 
 	@Override

@@ -204,7 +204,7 @@ public class StarterTests {
 		
 		/*
 		 * Two floors are considered equal if: 
-		 * 	1. their maximum capacities are the same; and
+		 * 	1. their maximum capacities are the same; and 
 		 * 	2. their spaces are utilized in the same way 
 		 * 		(meaning that for each added unit in one floor, we can find its equivalent in the other floor)
 		 *  For 2, the orders in which units are added to the two floors do not matter.   
@@ -230,6 +230,7 @@ public class StarterTests {
 			 *  + 1 office of 96'
 			 *  + 1 kitchen of 90' 
 			 */
+			f1.equals(f2); //REMOVE
 			assertEquals(f1, f2);
 		}
 		catch(InsufficientFloorSpaceException e) {

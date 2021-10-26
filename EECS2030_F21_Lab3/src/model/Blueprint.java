@@ -39,10 +39,6 @@ public class Blueprint {
 		return newFloors;
 	}
 	
-//	public int getNumFloorsAdded() {
-//		return this.nof;
-//	}
-// 
 	@Override
 	public String toString() {
 		
