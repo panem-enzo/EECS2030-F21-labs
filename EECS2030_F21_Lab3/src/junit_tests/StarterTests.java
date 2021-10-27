@@ -230,7 +230,6 @@ public class StarterTests {
 			 *  + 1 office of 96'
 			 *  + 1 kitchen of 90' 
 			 */
-			f1.equals(f2); //REMOVE
 			assertEquals(f1, f2);
 		}
 		catch(InsufficientFloorSpaceException e) {
