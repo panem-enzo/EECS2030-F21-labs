@@ -13,6 +13,46 @@ public class Subscriber extends Follower {
 		this.vidRec = new String[maxVideoRec];
 	}
 
+	public void watch(String video, int time) {
+		
+		// Find the channel with this video (assuming all videos are unique)
+		
+		boolean videoFound = false;
+		Channel channel = null;
+		
+		for (int i = 0; i < super.noc; i ++) {
+			for (int j = 0; !videoFound && j < super.channels[i].nov; j ++) {
+				
+				if (super.channels[i].videos[j].equals(video)) {
+					videoFound = true;
+					channel = super.channels[i];
+				}
+				
+			}
+		}
+		
+		int count = 0;
+		
+		for (int i = 0; i < channel.nof; i ++) {
+			
+			if (channel.followers[i].type.equals("Monitor")) {
+				
+				channel.views ++;
+				channel.totalWatchTime += time;
+				channel.avgWatchTime = (double) channel.totalWatchTime / channel.views;
+
+				if (time > channel.maxWatchTime) {
+					channel.maxWatchTime = time;
+				}
+				
+				channel.stats[count] = String.format(" {#views: %d, max watch time: %d, avg watch time: %.2f}", channel.views, channel.maxWatchTime, channel.avgWatchTime);
+				count ++;
+				
+			}
+		}
+		
+	}
+	
 	private String vidRecList() {
 		
 		String vidRecList = "is recommended <";
