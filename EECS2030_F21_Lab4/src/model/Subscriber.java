@@ -5,6 +5,10 @@ public class Subscriber extends Follower {
 	private String status;
 	protected String[] vidRec;
 	protected int novr;
+	protected int views;
+	protected int totalWatchTime;
+	protected int maxWatchTime;
+	protected double avgWatchTime;
 	
 	public Subscriber(String name, int maxChannels, int maxVideoRec) {
 		super.type = "Subscriber";
@@ -13,7 +17,6 @@ public class Subscriber extends Follower {
 		this.vidRec = new String[maxVideoRec];
 	}
 
-<<<<<<< HEAD
 	public void watch(String video, int time) {
 		
 		// Find the channel with this video (assuming all videos are unique)
@@ -36,29 +39,32 @@ public class Subscriber extends Follower {
 			
 			if (channel.followers[i].type.equals("Monitor")) {
 				
-				channel.views ++;
-				channel.totalWatchTime += time;
-				channel.avgWatchTime = (double) channel.totalWatchTime / channel.views;
-
-				if (time > channel.maxWatchTime) {
-					channel.maxWatchTime = time;
+				Monitor monitor = (Monitor) channel.followers[i];
+				
+				monitor.views ++;
+				monitor.totalWatchTime += time;
+				monitor.avgWatchTime = (double) monitor.totalWatchTime / monitor.views;
+				
+				if (time > monitor.maxWatchTime) {
+					monitor.maxWatchTime = time;
 				}
 				
-				Monitor monitor = (Monitor) channel.followers[i];
-				monitor.stats = String.format(" {#views: %d, max watch time: %d, avg watch time: %.2f}", channel.views, channel.maxWatchTime, channel.avgWatchTime);
+				monitor.stats = String.format(" {#views: %d, max watch time: %d, avg watch time: %.2f}", monitor.views, monitor.maxWatchTime, monitor.avgWatchTime);
+
+//				if (time > channel.maxWatchTime) {
+//					channel.maxWatchTime = time;
+//				}
+//				
+//				monitor.maxWatchTime = channel.maxWatchTime;
+//				
+//				channel.stats[count] = String.format(" {#views: %d, max watch time: %d, avg watch time: %.2f}", channel.views, channel.maxWatchTime, channel.avgWatchTime);
+//				count ++;
 				
 			}
-			
-			channel.views = 0;
-			channel.totalWatchTime = 0;
-			channel.avgWatchTime = 0;
-			
 		}
 		
 	}
 	
-=======
->>>>>>> parent of 87018c7 (Re-attempting 3b (Complete re-work))
 	private String vidRecList() {
 		
 		String vidRecList = "is recommended <";

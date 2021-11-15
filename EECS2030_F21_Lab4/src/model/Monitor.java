@@ -4,7 +4,6 @@ public class Monitor extends Follower {
 
 	private String status;
 	protected String stats;
-	protected int nos;
 	protected int views;
 	protected int totalWatchTime;
 	protected int maxWatchTime;
@@ -16,7 +15,6 @@ public class Monitor extends Follower {
 		super.channels = new Channel[maxChannels];
 	}
 	
-<<<<<<< HEAD
 	protected String chaList() {
 		
 		String chaList = "[";
@@ -25,9 +23,9 @@ public class Monitor extends Follower {
 			
 			chaList += channels[i].name;
 			
-			if (this.stats != null && this.nos > 0) {
+			if (this.views > 0) {
 				chaList += this.stats;
-			} 
+			}
 	
 			if (i != this.noc - 1) {
 				chaList += ", ";
@@ -41,13 +39,11 @@ public class Monitor extends Follower {
 		
 	}
 	
-=======
->>>>>>> parent of 87018c7 (Re-attempting 3b (Complete re-work))
 	@Override
 	public String toString() {
 		
 		if (super.noc != 0) {
-			this.status = String.format("%s %s follows %s.", super.type, super.name, super.chaList());
+			this.status = String.format("%s %s follows %s.", super.type, super.name, this.chaList());
 		} else {
 			this.status = String.format("%s %s follows no channels.", super.type, super.name);
 		}
