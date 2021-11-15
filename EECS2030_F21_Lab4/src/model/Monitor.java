@@ -3,6 +3,12 @@ package model;
 public class Monitor extends Follower {
 
 	private String status;
+	protected String stats;
+	protected int nos;
+	protected int views;
+	protected int totalWatchTime;
+	protected int maxWatchTime;
+	protected double avgWatchTime;
 	
 	public Monitor(String name, int maxChannels) {
 		super.type = "Monitor";
@@ -18,8 +24,8 @@ public class Monitor extends Follower {
 			
 			chaList += channels[i].name;
 			
-			if (channels[i].views > 0 && channels[i].stats[channels[i].nos] != null) {
-				chaList += channels[i].stats[channels[i].nos];
+			if (this.stats != null && this.nos > 0) {
+				chaList += this.stats;
 			} 
 	
 			if (i != this.noc - 1) {

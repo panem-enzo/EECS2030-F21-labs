@@ -31,8 +31,6 @@ public class Subscriber extends Follower {
 			}
 		}
 		
-		int count = 0;
-		
 		for (int i = 0; i < channel.nof; i ++) {
 			
 			if (channel.followers[i].type.equals("Monitor")) {
@@ -45,10 +43,15 @@ public class Subscriber extends Follower {
 					channel.maxWatchTime = time;
 				}
 				
-				channel.stats[count] = String.format(" {#views: %d, max watch time: %d, avg watch time: %.2f}", channel.views, channel.maxWatchTime, channel.avgWatchTime);
-				count ++;
+				Monitor monitor = (Monitor) channel.followers[i];
+				monitor.stats = String.format(" {#views: %d, max watch time: %d, avg watch time: %.2f}", channel.views, channel.maxWatchTime, channel.avgWatchTime);
 				
 			}
+			
+			channel.views = 0;
+			channel.totalWatchTime = 0;
+			channel.avgWatchTime = 0;
+			
 		}
 		
 	}

@@ -7,8 +7,6 @@ public class Channel {
 	protected int nof;
 	protected String name;
 	protected String[] videos;
-	protected String[] stats;
-	protected int nos;
 	protected int nov;
 	protected int views;
 	protected int totalWatchTime;
@@ -19,7 +17,6 @@ public class Channel {
 		this.name = name;
 		this.videos = new String[maxVideos];
 		this.followers = new Follower[maxFollowers];
-		this.stats = new String[maxFollowers];
 	}
 
 	public void releaseANewVideo(String video) {
@@ -45,11 +42,6 @@ public class Channel {
 
 		followers[this.nof] = follower;
 		this.nof++;
-		
-		if (follower.type.equals("Monitor") && this.views > 0) {
-			this.nos++;
-		}
-		
 		
 	}
 
