@@ -8,12 +8,23 @@ public class Follower {
 	
 	public Follower() {}
 	
-	protected void chaList() {
+	protected String chaList() {
 		
-	}
-	
-	@Override
-	public String toString() {
+		String chaList = "[";
+		
+		for (int i = 0; i < this.noc; i ++) {
+			
+			chaList += channels[i].name;
+			
+			if (i != this.noc - 1) {
+				chaList += ", ";
+			}
+			
+		}
+		
+		chaList += "]";
+		
+		return chaList;
 		
 	}
 	

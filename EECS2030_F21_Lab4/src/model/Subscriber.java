@@ -3,37 +3,26 @@ package model;
 public class Subscriber extends Follower {
 
 	private String status;
-	private int maxVideoRec;
+	private String[] vidRec;
 	
 	public Subscriber(String name, int maxChannels, int maxVideoRec) {
 		super.name = String.format("Subscriber %s", name);
 		super.channels = new Channel[maxChannels];
-		this.maxVideoRec = maxVideoRec;
-		this.status = String.format("%s follows no channels and has no recommended videos.", super.name);
+		this.vidRec = new String[maxVideoRec];
 	}
 
-//	if (super.nof != 0) {
+//	private vidRecList() {
 //		
-//		String list = "[";
-//		
-//		for (int i = 0; i < super.nof; i ++) {
-//			
-//			list += super.channels[i].name;
-//			
-//			if (i != super.nof - 1) {
-//				list += ", ";
-//			}
-//		}
-//		
-//		list += "]";
-//		
-//		this.status = String.format("%s follows %s and has no recommended videos.", super.name, list);
 //	}
-	
+	 
 	@Override
 	public String toString() {
 		
-		
+		if (super.noc != 0) {
+			this.status = String.format("%s follows %s and has no recommended videos.", super.name, super.chaList());
+		} else {
+			this.status = String.format("%s follows no channels and has no recommended videos.", super.name);
+		}
 		
 		return this.status;
 	}
