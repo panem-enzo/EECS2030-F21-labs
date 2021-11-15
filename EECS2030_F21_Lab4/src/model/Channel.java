@@ -2,16 +2,21 @@ package model;
 
 public class Channel {
 
-	private String status;
-	protected Follower[] followers;
-	protected int nof;
 	protected String name;
+<<<<<<< HEAD
 	protected String[] videos;
 	protected int nov;
 	protected int views;
 	protected int totalWatchTime;
 	protected int maxWatchTime;
 	protected double avgWatchTime;
+=======
+	private String status;
+	private String[] videos;
+	private Follower[] followers;
+	private int nov;
+	private int nof;
+>>>>>>> parent of 87018c7 (Re-attempting 3b (Complete re-work))
 
 	public Channel(String name, int maxFollowers, int maxVideos) {
 		this.name = name;
@@ -42,7 +47,10 @@ public class Channel {
 
 		followers[this.nof] = follower;
 		this.nof++;
+<<<<<<< HEAD
 		
+=======
+>>>>>>> parent of 87018c7 (Re-attempting 3b (Complete re-work))
 	}
 
 	public void unfollow(Follower follower) {

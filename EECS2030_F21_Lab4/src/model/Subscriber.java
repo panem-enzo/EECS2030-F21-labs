@@ -13,6 +13,7 @@ public class Subscriber extends Follower {
 		this.vidRec = new String[maxVideoRec];
 	}
 
+<<<<<<< HEAD
 	public void watch(String video, int time) {
 		
 		// Find the channel with this video (assuming all videos are unique)
@@ -56,6 +57,8 @@ public class Subscriber extends Follower {
 		
 	}
 	
+=======
+>>>>>>> parent of 87018c7 (Re-attempting 3b (Complete re-work))
 	private String vidRecList() {
 		
 		String vidRecList = "is recommended <";
