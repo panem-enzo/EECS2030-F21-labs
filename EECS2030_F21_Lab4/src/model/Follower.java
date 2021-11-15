@@ -3,6 +3,7 @@ package model;
 public class Follower {
 	
 	protected String name;
+	protected String type;
 	protected Channel[] channels;
 	protected int noc;
 	

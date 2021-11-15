@@ -1,7 +1,5 @@
 package model;
 
-import java.lang.reflect.Array;
-
 public class Channel {
 
 	protected String name;
@@ -22,7 +20,13 @@ public class Channel {
 		this.nov++;
 		
 		for (int i = 0; i < this.nof; i ++) {
-			
+			if ((followers[i]).type.equals("Subscriber")) {
+				
+				 Subscriber sub = (Subscriber) followers[i];
+				 sub.vidRec[sub.novr] = video;
+				 sub.novr ++;
+				 
+			}
 		}
 		
 	}
@@ -102,7 +106,7 @@ public class Channel {
 
 		for (int i = 0; i < this.nof; i++) {
 
-			folList += followers[i].name;
+			folList += followers[i].type + " " + followers[i].name;
 
 			if (i != this.nof - 1) {
 				folList += ", ";
