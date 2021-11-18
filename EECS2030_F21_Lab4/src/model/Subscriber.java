@@ -31,49 +31,53 @@ public class Subscriber extends Follower {
 			}
 		}
 		
-		//Iterating through the followers of a PARTICULAR channel
-		for (int i = 0; i < channel.nof; i ++) {
+		if (videoFound) {
 			
-			if (channel.followers[i].type.equals("Monitor")) {
+			//Iterating through the followers of a PARTICULAR channel
+			for (int i = 0; i < channel.nof; i ++) {
 				
-				Monitor monitor = (Monitor) channel.followers[i];
-				
-				channel.views[channel.monitorIndex] ++;
-				channel.totalWatchTime[channel.monitorIndex] += time;
-				channel.avgWatchTime[channel.monitorIndex] = (double) channel.totalWatchTime[channel.monitorIndex] / channel.views[channel.monitorIndex];
-				
-				if (time > channel.maxWatchTime[channel.monitorIndex]) {
-					channel.maxWatchTime[channel.monitorIndex] = time;
-				}
-				
-				if (monitor.views == null) {
+				if (channel.followers[i].type.equals("Monitor")) {
 					
-					monitor.views = new int[monitor.noc];
-					monitor.totalWatchTime = new int[monitor.noc];
-					monitor.maxWatchTime = new int[monitor.noc];
-					monitor.avgWatchTime = new double[monitor.noc];
+					Monitor monitor = (Monitor) channel.followers[i];
 					
-				}
-				
-				int channelIndex = 0;
-				
-				for (int j = 0; j < monitor.noc; j ++) {
+					channel.views[channel.monitorIndex] ++;
+					channel.totalWatchTime[channel.monitorIndex] += time;
+					channel.avgWatchTime[channel.monitorIndex] = (double) channel.totalWatchTime[channel.monitorIndex] / channel.views[channel.monitorIndex];
 					
-					if (monitor.channels[j].name.equals(channel.name)) {
-						channelIndex = j;
+					if (time > channel.maxWatchTime[channel.monitorIndex]) {
+						channel.maxWatchTime[channel.monitorIndex] = time;
 					}
-	
+					
+					if (monitor.views == null) {
+						
+						monitor.views = new int[monitor.noc];
+						monitor.totalWatchTime = new int[monitor.noc];
+						monitor.maxWatchTime = new int[monitor.noc];
+						monitor.avgWatchTime = new double[monitor.noc];
+						
+					}
+					
+					int channelIndex = 0;
+					
+					for (int j = 0; j < monitor.noc; j ++) {
+						
+						if (monitor.channels[j].name.equals(channel.name)) {
+							channelIndex = j;
+						}
+		
+					}
+					
+					monitor.views[channelIndex] ++;
+					monitor.totalWatchTime[channelIndex] += time;
+					monitor.avgWatchTime[channelIndex] = (double) monitor.totalWatchTime[channelIndex] / monitor.views[channelIndex];
+					
+					if (time > 	monitor.maxWatchTime[channelIndex]) {
+						monitor.maxWatchTime[channelIndex] = time;
+					}
+					
 				}
-				
-				monitor.views[channelIndex] ++;
-				monitor.totalWatchTime[channelIndex] += time;
-				monitor.avgWatchTime[channelIndex] = (double) monitor.totalWatchTime[channelIndex] / monitor.views[channelIndex];
-				
-				if (time > 	monitor.maxWatchTime[channelIndex]) {
-					monitor.maxWatchTime[channelIndex] = time;
-				}
-				
 			}
+			
 		}
 		
 	}
