@@ -6,20 +6,25 @@ public class Channel {
 	protected Follower[] followers;
 	protected int nof;
 	protected String name;
+	protected int maxFollowers;
 	protected String[] videos;
-	protected String[] stats;
-	protected int nos;
 	protected int nov;
-	protected int views;
-	protected int totalWatchTime;
-	protected int maxWatchTime;
-	protected double avgWatchTime;
+	protected int monitorIndex; //number of monitors tracked (stats)
+	protected int views[];
+	protected int totalWatchTime[];
+	protected int maxWatchTime[];
+	protected double avgWatchTime[];
 
 	public Channel(String name, int maxFollowers, int maxVideos) {
 		this.name = name;
+		this.maxFollowers = maxFollowers;
 		this.videos = new String[maxVideos];
 		this.followers = new Follower[maxFollowers];
-		this.stats = new String[maxFollowers];
+		
+		this.views = new int[maxFollowers];
+		this.totalWatchTime = new int[maxFollowers];
+		this.maxWatchTime = new int[maxFollowers];
+		this.avgWatchTime = new double[maxFollowers];
 	}
 
 	public void releaseANewVideo(String video) {
@@ -46,8 +51,20 @@ public class Channel {
 		followers[this.nof] = follower;
 		this.nof++;
 		
-		if (follower.type.equals("Monitor") && this.views > 0) {
-			this.nos++;
+		// Finds an existing monitor and will only shift the index for storing the stats if the monitor is unique
+		
+		boolean valid = false;
+		
+		for (int i = 0; !valid && i < nof; i ++) {
+			
+			if (this.followers[i].type.equals("Monitor") && follower.type.equals("Monitor") && (!(this.followers[i].name.equals(follower.name)))) {
+				
+				Monitor monitor = (Monitor) follower;
+				this.monitorIndex ++;
+				valid = true;
+				
+			}
+			
 		}
 		
 		
