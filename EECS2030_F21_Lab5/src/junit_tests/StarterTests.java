@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import model.BinarySeqOperation;
+import model.OccursWithin;
 import model.Projection;
 import model.SeqOperation;
 
@@ -110,30 +111,30 @@ public class StarterTests {
 	 * Tests related to the OccursWithin class.
 	 */
 	
-//	@Test
-//	public void test_occurs_within_01() {
-//		int[] seq1a = {1, 6, 1};
-//		int[] seq2 = {2, 1, 6, 3, 1, 4, 5, 3};
-//		
-//		/*
-//		 * Does the 1st sequence appear as part of the 2nd sequence? 
-//		 */
-//		BinarySeqOperation binOp = new OccursWithin(seq1a, seq2);
-//		SeqOperation op = binOp;
-//		assertEquals("[1, 6, 1] does not occur within [2, 1, 6, 3, 1, 4, 5, 3]", op.toString());
-//		
-//		int[] seq1b = {3, 1, 4, 5}; 
-//		op = new OccursWithin(seq1b, seq2);
-//		assertEquals("[3, 1, 4, 5] occurs within [2, 1, 6, 3, 1, 4, 5, 3]", op.toString());
-//		
-//		/*
-//		 * You may want to also test:
-//		 * 	1) An empty seq1 [] occurs within any seq2 (either empty or non-empty).
-//		 * 	2) A non-empty seq1 does not occur within an empty seq2 []. 
-//		 * 	3) A sequence does not occur within another shorter sequence.  
-//		 */
-//	}
-//	
+	@Test
+	public void test_occurs_within_01() {
+		int[] seq1a = {1, 6, 1};
+		int[] seq2 = {2, 1, 6, 3, 1, 4, 5, 3};
+		
+		/*
+		 * Does the 1st sequence appear as part of the 2nd sequence? 
+		 */
+		BinarySeqOperation binOp = new OccursWithin(seq1a, seq2);
+		SeqOperation op = binOp;
+		assertEquals("[1, 6, 1] does not occur within [2, 1, 6, 3, 1, 4, 5, 3]", op.toString());
+		
+		int[] seq1b = {3, 1, 4, 5}; 
+		op = new OccursWithin(seq1b, seq2);
+		assertEquals("[3, 1, 4, 5] occurs within [2, 1, 6, 3, 1, 4, 5, 3]", op.toString());
+		
+		/*
+		 * You may want to also test:
+		 * 	1) An empty seq1 [] occurs within any seq2 (either empty or non-empty).
+		 * 	2) A non-empty seq1 does not occur within an empty seq2 []. 
+		 * 	3) A sequence does not occur within another shorter sequence.  
+		 */
+	}
+	
 //	/*
 //	 * Tests related to the SumsOfPrefixes class.
 //	 */
