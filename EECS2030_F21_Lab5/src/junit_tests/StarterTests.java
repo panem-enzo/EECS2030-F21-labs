@@ -5,8 +5,11 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import model.BinarySeqOperation;
+import model.ConcatAll;
+import model.IllegalOperationException;
 import model.OccursWithin;
 import model.Projection;
+import model.SeqEvaluator;
 import model.SeqOperation;
 import model.SumsOfPrefixes;
 
@@ -175,62 +178,61 @@ public class StarterTests {
 	 * Tests related to the ConcatAll class.
 	 */
 	
-//	@Test
-//	public void test_contact_all_01() {
-//		/*
-//		 * Create a ConcatAll evaluator which can hold
-//		 * 	no more than 10 sequence operations.
-//		 */
-//		SeqEvaluator evaluator = new ConcatAll(10);
-//		
-//		int[] seq1 = {1, 3, 5};
-//		int[] seq2 = {2, 1, 6, 3, 1, 4, 5, 3};
-//		int[] seq3 = {7, 8};
-//		try {
-//			/* 
-//			 * Add the 1st operation as a projection, which  
-//			 * 	takes `seq1` and `seq2` as inputs and results in another sequence.
-//			 * 
-//			 * Assume that when "op:projection" is specified, 
-//			 * 	both the second and third arguments are always non-null.
-//			 */
-//			evaluator.addOperation("op:projection", seq1, seq2);
-//			
-//			/* 
-//			 * Add the 2nd operation as a sum of prefixes, which  
-//			 * 	takes `seq1` as input and results in another sequence.
-//			 * 
-//			 * Assume that when "op:sumsOfPrefixes" is specified, 
-//			 * 	the third argument is always null.
-//			 */
-//			evaluator.addOperation("op:sumsOfPrefixes", seq1, null);
-//			
-//			/*
-//			 * Add the 3rd operation.
-//			 */
-//			evaluator.addOperation("op:projection", seq3, seq2);
-//			
-//			/*
-//			 * The result of ConcatAll is the concatenation of the resulting sequences from the added operations.
-//			 * For example: 
-//			 * 	- 1st added operation (projection) results in [1, 3, 1, 5, 3].
-//			 * 	- 2nd added operation (sum of prefixes) results in [0, 1, 4, 9].
-//			 * 	- 3rd added operation (projection) results in [].
-//			 * 	- The concatenation of these three resulting sequences is as shown in the expected string below. 
-//			 */
-//			assertEquals("Concat([1, 3, 1, 5, 3], [0, 1, 4, 9], []) = [1, 3, 1, 5, 3, 0, 1, 4, 9]", evaluator.toString());
-//			
-//			/*
-//			 * You may also want to test cases where:
-//			 * 	- The concatenation involves more added operations.
-//			 * 	- Some added operations at the beginning or in the middle of the list may result in empty sequences.  
-//			 */
-//		}
-//		catch(IllegalOperationException e) {
-//			fail();
-//		}
-//	}
-//	
+	@Test
+	public void test_contact_all_01() {
+		/*
+		 * Create a ConcatAll evaluator which can hold
+		 * 	no more than 10 sequence operations.
+		 */
+		SeqEvaluator evaluator = new ConcatAll(10);
+		
+		int[] seq1 = {1, 3, 5};
+		int[] seq2 = {2, 1, 6, 3, 1, 4, 5, 3};
+		int[] seq3 = {7, 8};
+		try {
+			/* 
+			 * Add the 1st operation as a projection, which  
+			 * 	takes `seq1` and `seq2` as inputs and results in another sequence.
+			 * 
+			 * Assume that when "op:projection" is specified, 
+			 * 	both the second and third arguments are always non-null.
+			 */
+			evaluator.addOperation("op:projection", seq1, seq2);
+			/* 
+			 * Add the 2nd operation as a sum of prefixes, which  
+			 * 	takes `seq1` as input and results in another sequence.
+			 * 
+			 * Assume that when "op:sumsOfPrefixes" is specified, 
+			 * 	the third argument is always null.
+			 */
+			evaluator.addOperation("op:sumsOfPrefixes", seq1, null);
+			
+			/*
+			 * Add the 3rd operation.
+			 */
+			evaluator.addOperation("op:projection", seq3, seq2);
+			
+			/*
+			 * The result of ConcatAll is the concatenation of the resulting sequences from the added operations.
+			 * For example: 
+			 * 	- 1st added operation (projection) results in [1, 3, 1, 5, 3].
+			 * 	- 2nd added operation (sum of prefixes) results in [0, 1, 4, 9].
+			 * 	- 3rd added operation (projection) results in [].
+			 * 	- The concatenation of these three resulting sequences is as shown in the expected string below. 
+			 */
+			assertEquals("Concat([1, 3, 1, 5, 3], [0, 1, 4, 9], []) = [1, 3, 1, 5, 3, 0, 1, 4, 9]", evaluator.toString());
+			
+			/*
+			 * You may also want to test cases where:
+			 * 	- The concatenation involves more added operations.
+			 * 	- Some added operations at the beginning or in the middle of the list may result in empty sequences.  
+			 */
+		}
+		catch(IllegalOperationException e) {
+			fail();
+		}
+	}
+	
 //	@Test
 //	public void test_contact_all_02() {
 //		/*
