@@ -233,56 +233,56 @@ public class StarterTests {
 		}
 	}
 	
-//	@Test
-//	public void test_contact_all_02() {
-//		/*
-//		 * Create a ConcatAll evaluator which can hold
-//		 * 	no more than 10 sequence operations.
-//		 */
-//		SeqEvaluator evaluator = new ConcatAll(10);
-//		
-//		int[] seq1 = {1, 3, 5};
-//		int[] seq2 = {2, 1, 6, 3, 1, 4, 5, 3};
-//		int[] seq3 = {7, 8};
-//		try {
-//			/* 
-//			 * Add the 1st operation which results in another sequence.
-//			 */
-//			evaluator.addOperation("op:projection", seq1, seq2);
-//			
-//			/*
-//			 * Add the 2nd operation which does NOT result in another sequence.
-//			 * This operation is incompatible with ConcatAll.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq1, seq3);
-//			
-//			/* 
-//			 * Add the 3rd operation which results in another sequence.
-//			 */
-//			evaluator.addOperation("op:sumsOfPrefixes", seq1, null);
-//			
-//			/*
-//			 * Add the 4th operation which does NOT result in another sequence.
-//			 * This operation is incompatible with ConcatAll.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq3, seq2);
-//			
-//			/*
-//			 * ConcatAll can only function when each of the added operation results in a sequence.
-//			 * Otherwise, report how many such incompatible operations (each of which not resulting in a sequence) there are.  
-//			 */
-//			assertEquals("Concat cannot be evaluated due to 2 incompatile operations.", evaluator.toString());
-//			
-//			/*
-//			 * You may also want to test cases where:
-//			 * 	- The concatenation involves more added operations that are incompatible.  
-//			 */
-//		}
-//		catch(IllegalOperationException e) {
-//			fail();
-//		}
-//	}
-//	
+	@Test
+	public void test_contact_all_02() {
+		/*
+		 * Create a ConcatAll evaluator which can hold
+		 * 	no more than 10 sequence operations.
+		 */
+		SeqEvaluator evaluator = new ConcatAll(10);
+		
+		int[] seq1 = {1, 3, 5};
+		int[] seq2 = {2, 1, 6, 3, 1, 4, 5, 3};
+		int[] seq3 = {7, 8};
+		try {
+			/* 
+			 * Add the 1st operation which results in another sequence.
+			 */
+			evaluator.addOperation("op:projection", seq1, seq2);
+			
+			/*
+			 * Add the 2nd operation which does NOT result in another sequence.
+			 * This operation is incompatible with ConcatAll.
+			 */
+			evaluator.addOperation("op:occursWithin", seq1, seq3);
+			
+			/* 
+			 * Add the 3rd operation which results in another sequence.
+			 */
+			evaluator.addOperation("op:sumsOfPrefixes", seq1, null);
+			
+			/*
+			 * Add the 4th operation which does NOT result in another sequence.
+			 * This operation is incompatible with ConcatAll.
+			 */
+			evaluator.addOperation("op:occursWithin", seq3, seq2);
+			
+			/*
+			 * ConcatAll can only function when each of the added operation results in a sequence.
+			 * Otherwise, report how many such incompatible operations (each of which not resulting in a sequence) there are.  
+			 */
+			assertEquals("Concat cannot be evaluated due to 2 incompatile operations.", evaluator.toString());
+			
+			/*
+			 * You may also want to test cases where:
+			 * 	- The concatenation involves more added operations that are incompatible.  
+			 */
+		}
+		catch(IllegalOperationException e) {
+			fail();
+		}
+	}
+	
 //	/*
 //	 * Tests related to the FilterAll class.
 //	 */
