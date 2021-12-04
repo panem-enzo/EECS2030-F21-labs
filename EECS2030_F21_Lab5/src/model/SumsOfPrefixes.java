@@ -2,13 +2,12 @@ package model;
 
 public class SumsOfPrefixes extends SeqOperation {
 
+	private int[] prefixSum;
+	
 	public SumsOfPrefixes(int[] seq1) {
 		this.seq1 = seq1;
-	}
-	
-	public String toString() {
+		this.prefixSum = new int[seq1.length+1];
 		
-		int[] prefixSum = new int[seq1.length+1];
 		prefixSum[0] = 0;
 		
 		if (seq1.length > 0) {
@@ -20,8 +19,19 @@ public class SumsOfPrefixes extends SeqOperation {
 			}
 			
 		}
+	}
+	
+	public int[] getSequence() {
+		return this.prefixSum;
+	}
+	
+	public int getSequenceLength() {
+		return this.prefixSum.length;
+	}
+	
+	public String toString() {
 		
-		String result = String.format("Sums of prefixes of %s is: %s", this.seqBracket(this.seq1),this.seqBracket(prefixSum));
+		String result = String.format("Sums of prefixes of %s is: %s", this.seqBracket(seq1),this.seqBracket(prefixSum));
 		
 		return result;
 	}

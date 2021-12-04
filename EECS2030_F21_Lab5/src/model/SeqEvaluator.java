@@ -2,8 +2,8 @@ package model;
 
 public abstract class SeqEvaluator {
 
-	SeqOperation[] seqOps; 
-	int noso;
+	protected SeqOperation[] seqOps; 
+	protected int noso;
 	
 	public SeqEvaluator(int maxSeqOps) {
 		this.seqOps = new SeqOperation[maxSeqOps];
@@ -11,14 +11,13 @@ public abstract class SeqEvaluator {
 	
 	public void addOperation(String operation, int[] seq1, int[] seq2) throws IllegalOperationException {
 		
-		SeqOperation seqOp = null;
 		if (operation.equals("op:projection")) {
-			seqOp = new Projection(seq1,seq2);
+			this.seqOps[this.noso] = new Projection(seq1,seq2);
+			this.noso ++;
 		} else if (operation.equals("op:sumsOfPrefixes")) {
-			seqOp = new SumsOfPrefixes(seq1);
+			this.seqOps[this.noso] = new SumsOfPrefixes(seq1);
+			this.noso ++;
 		} 
-		
-		
 		
 	}
 	

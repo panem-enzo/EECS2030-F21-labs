@@ -2,8 +2,8 @@ package model;
 
 public class SeqOperation {
 	
-	int[] seq1;
-	int[] seq2;
+	protected int[] seq1;
+	protected int[] seq2;
 	
 	public String seqBracket(int[] seq) {
 
