@@ -1,7 +1,10 @@
 package model;
 
 public class SeqOperation {
-
+	
+	int[] seq1;
+	int[] seq2;
+	
 	public String seqBracket(int[] seq) {
 
 		String seqBracket = "[";

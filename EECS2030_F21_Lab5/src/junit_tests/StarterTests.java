@@ -8,6 +8,7 @@ import model.BinarySeqOperation;
 import model.OccursWithin;
 import model.Projection;
 import model.SeqOperation;
+import model.SumsOfPrefixes;
 
 /*
  * Requirement: Any classes you create must reside in the `model` package and be imported properly.
@@ -135,45 +136,45 @@ public class StarterTests {
 		 */
 	}
 	
-//	/*
-//	 * Tests related to the SumsOfPrefixes class.
-//	 */
-//	
-//	@Test
-//	public void test_sums_of_prefixes_01() {
-//		int[] seq1 = {1};
-//		/*
-//		 * `seq1` has prefixes: [], [1]
-//		 * Produce another sequence where each element is the sum of each prefix. 
-//		 */
-//		SeqOperation op = new SumsOfPrefixes(seq1);
-//		assertEquals("Sums of prefixes of [1] is: [0, 1]", op.toString());
-//		
-//		int[] seq2 = {1, 6};
-//		/*
-//		 * `seq2` has prefixes: [], [1], [1, 6]
-//		 * Produce another sequence where each element is the sum of each prefix. 
-//		 */
-//		op = new SumsOfPrefixes(seq2);
-//		assertEquals("Sums of prefixes of [1, 6] is: [0, 1, 7]", op.toString());
-//		
-//		int[] seq3 = {1, 6, 1};
-//		/*
-//		 * `seq3` has prefixes: [], [1], [1, 6], [1, 6, 1]
-//		 * Produce another sequence where each element is the sum of each prefix. 
-//		 */
-//		op = new SumsOfPrefixes(seq3);
-//		assertEquals("Sums of prefixes of [1, 6, 1] is: [0, 1, 7, 8]", op.toString());
-//		
-//		/*
-//		 * You may want to also test the case where an empty sequence has only one prefix: []  
-//		 */
-//	}
-//	
-//	/*
-//	 * Tests related to the ConcatAll class.
-//	 */
-//	
+	/*
+	 * Tests related to the SumsOfPrefixes class.
+	 */
+	
+	@Test
+	public void test_sums_of_prefixes_01() {
+		int[] seq1 = {1};
+		/*
+		 * `seq1` has prefixes: [], [1]
+		 * Produce another sequence where each element is the sum of each prefix. 
+		 */
+		SeqOperation op = new SumsOfPrefixes(seq1);
+		assertEquals("Sums of prefixes of [1] is: [0, 1]", op.toString());
+		
+		int[] seq2 = {1, 6};
+		/*
+		 * `seq2` has prefixes: [], [1], [1, 6]
+		 * Produce another sequence where each element is the sum of each prefix. 
+		 */
+		op = new SumsOfPrefixes(seq2);
+		assertEquals("Sums of prefixes of [1, 6] is: [0, 1, 7]", op.toString());
+		
+		int[] seq3 = {1, 6, 1};
+		/*
+		 * `seq3` has prefixes: [], [1], [1, 6], [1, 6, 1]
+		 * Produce another sequence where each element is the sum of each prefix. 
+		 */
+		op = new SumsOfPrefixes(seq3);
+		assertEquals("Sums of prefixes of [1, 6, 1] is: [0, 1, 7, 8]", op.toString());
+		
+		/*
+		 * You may want to also test the case where an empty sequence has only one prefix: []  
+		 */
+	}
+	
+	/*
+	 * Tests related to the ConcatAll class.
+	 */
+	
 //	@Test
 //	public void test_contact_all_01() {
 //		/*
