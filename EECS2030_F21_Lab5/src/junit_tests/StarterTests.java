@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import model.BinarySeqOperation;
 import model.ConcatAll;
+import model.FilterAll;
 import model.IllegalOperationException;
 import model.OccursWithin;
 import model.Projection;
@@ -283,117 +284,117 @@ public class StarterTests {
 		}
 	}
 	
-//	/*
-//	 * Tests related to the FilterAll class.
-//	 */
-//	
-//	@Test
-//	public void test_filter_all_01() {
-//		/*
-//		 * Create a FilterAll evaluator which can hold
-//		 * 	no more than 10 sequence operations.
-//		 */
-//		SeqEvaluator evaluator = new FilterAll(10);
-//		
-//		int[] seq1 = {1, 6, 3, 1};
-//		int[] seq2 = {7, 8};
-//		int[] seq3 = {4, 5, 3};
-//		int[] seq4 = {2, 1, 6, 3, 1, 4, 5, 3};
-//		try {
-//			/* 
-//			 * Add the 1st operation, which  
-//			 * 	takes `seq1` and `seq2` as inputs and does not result in a sequence.
-//			 * 
-//			 * Assume that when "op:occursWithin" is specified, 
-//			 * 	both the second and third arguments are always non-null.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq1, seq4);
-//			
-//			/* 
-//			 * Add the 2nd operation.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq2, seq4);
-//			
-//			/*
-//			 * Add the 3rd operation.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq3, seq4);
-//			
-//			/*
-//			 * The result of FilterAll indicates the resulting value of each added operation.
-//			 * For example: 
-//			 * 	- 1st added operation results in true 	(because seq1 occurs within seq4).
-//			 * 	- 2nd added operation results in _ 		(i.e., filtered out, because seq2 does not occur within seq4).
-//			 * 	- 3rd added operation results in true 	(because seq3 occurs within seq4). 
-//			 */
-//			assertEquals("Filter result is: true, _, true", evaluator.toString());
-//			
-//			/*
-//			 * You may also want to test cases where:
-//			 * 	- The filter evaluator stores more added operations.
-//			 * 	- Some added operations at the beginning or end of the list may result in false (which will be filtered out).  
-//			 */
-//		}
-//		catch(IllegalOperationException e) {
-//			fail();
-//		}
-//	}
-//	
-//	@Test
-//	public void test_filter_all_02() {
-//		/*
-//		 * Create a FilterAll evaluator which can hold
-//		 * 	no more than 10 sequence operations.
-//		 */
-//		SeqEvaluator evaluator = new FilterAll(10);
-//		
-//		int[] seq1 = {1, 6, 3, 1};
-//		int[] seq2 = {7, 8};
-//		int[] seq3 = {4, 5, 3};
-//		int[] seq4 = {2, 1, 6, 3, 1, 4, 5, 3};
-//		try {
-//			/* 
-//			 * Add the 1st operation which results in a true/false value.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq1, seq4);
-//			
-//			/*
-//			 * Add the 2nd operation which does NOT result in a true/false value.
-//			 * This operation is incompatible with FilterAll.
-//			 */
-//			evaluator.addOperation("op:projection", seq1, seq3);
-//			
-//			/*
-//			 * Add the 3rd operation which does NOT result in a true/false value.
-//			 * This operation is incompatible with FilterAll.
-//			 */
-//			evaluator.addOperation("op:sumsOfPrefixes", seq1, null);
-//			
-//			/* 
-//			 * Add the 4th operation which results in a true/false value.
-//			 */
-//			evaluator.addOperation("op:occursWithin", seq2, seq4);
-//			
-//			/*
-//			 * FilterAll can only function when each of the added operation results in a true/false value.
-//			 * Otherwise, report how many such incompatible operations (each of which not resulting in a true/false value) there are.  
-//			 */
-//			assertEquals("Filter cannot be evaluated due to 2 incompatile operations.", evaluator.toString());
-//			
-//			/*
-//			 * You may also want to test cases where:
-//			 * 	- The concatenation involves more added operations that are incompatible.  
-//			 */
-//		}
-//		catch(IllegalOperationException e) {
-//			fail();
-//		}
-//	}
-//	
-//	/*
-//	 * More tests related to the ContactAll and FilterAll classes.
-//	 */
-//	
+	/*
+	 * Tests related to the FilterAll class.
+	 */
+	
+	@Test
+	public void test_filter_all_01() {
+		/*
+		 * Create a FilterAll evaluator which can hold
+		 * 	no more than 10 sequence operations.
+		 */
+		SeqEvaluator evaluator = new FilterAll(10);
+		
+		int[] seq1 = {1, 6, 3, 1};
+		int[] seq2 = {7, 8};
+		int[] seq3 = {4, 5, 3};
+		int[] seq4 = {2, 1, 6, 3, 1, 4, 5, 3};
+		try {
+			/* 
+			 * Add the 1st operation, which  
+			 * 	takes `seq1` and `seq2` as inputs and does not result in a sequence.
+			 * 
+			 * Assume that when "op:occursWithin" is specified, 
+			 * 	both the second and third arguments are always non-null.
+			 */
+			evaluator.addOperation("op:occursWithin", seq1, seq4);
+			
+			/* 
+			 * Add the 2nd operation.
+			 */
+			evaluator.addOperation("op:occursWithin", seq2, seq4);
+			
+			/*
+			 * Add the 3rd operation.
+			 */
+			evaluator.addOperation("op:occursWithin", seq3, seq4);
+			
+			/*
+			 * The result of FilterAll indicates the resulting value of each added operation.
+			 * For example: 
+			 * 	- 1st added operation results in true 	(because seq1 occurs within seq4).
+			 * 	- 2nd added operation results in _ 		(i.e., filtered out, because seq2 does not occur within seq4).
+			 * 	- 3rd added operation results in true 	(because seq3 occurs within seq4). 
+			 */
+			assertEquals("Filter result is: true, _, true", evaluator.toString());
+			
+			/*
+			 * You may also want to test cases where:
+			 * 	- The filter evaluator stores more added operations.
+			 * 	- Some added operations at the beginning or end of the list may result in false (which will be filtered out).  
+			 */
+		}
+		catch(IllegalOperationException e) {
+			fail();
+		}
+	}
+	
+	@Test
+	public void test_filter_all_02() {
+		/*
+		 * Create a FilterAll evaluator which can hold
+		 * 	no more than 10 sequence operations.
+		 */
+		SeqEvaluator evaluator = new FilterAll(10);
+		
+		int[] seq1 = {1, 6, 3, 1};
+		int[] seq2 = {7, 8};
+		int[] seq3 = {4, 5, 3};
+		int[] seq4 = {2, 1, 6, 3, 1, 4, 5, 3};
+		try {
+			/* 
+			 * Add the 1st operation which results in a true/false value.
+			 */
+			evaluator.addOperation("op:occursWithin", seq1, seq4);
+			
+			/*
+			 * Add the 2nd operation which does NOT result in a true/false value.
+			 * This operation is incompatible with FilterAll.
+			 */
+			evaluator.addOperation("op:projection", seq1, seq3);
+			
+			/*
+			 * Add the 3rd operation which does NOT result in a true/false value.
+			 * This operation is incompatible with FilterAll.
+			 */
+			evaluator.addOperation("op:sumsOfPrefixes", seq1, null);
+			
+			/* 
+			 * Add the 4th operation which results in a true/false value.
+			 */
+			evaluator.addOperation("op:occursWithin", seq2, seq4);
+			
+			/*
+			 * FilterAll can only function when each of the added operation results in a true/false value.
+			 * Otherwise, report how many such incompatible operations (each of which not resulting in a true/false value) there are.  
+			 */
+			assertEquals("Filter cannot be evaluated due to 2 incompatile operations.", evaluator.toString());
+			
+			/*
+			 * You may also want to test cases where:
+			 * 	- The concatenation involves more added operations that are incompatible.  
+			 */
+		}
+		catch(IllegalOperationException e) {
+			fail();
+		}
+	}
+	
+	/*
+	 * More tests related to the ContactAll and FilterAll classes.
+	 */
+	
 //	@Test
 //	public void test_contact_all_03() {
 //		/*

@@ -2,7 +2,7 @@ package model;
 
 public class OccursWithin extends BinarySeqOperation {
 
-	boolean occurs = false;
+	private boolean occurs = false;
 
 	public OccursWithin(int[] seq1, int[] seq2) {
 		this.seq1 = seq1;
@@ -41,6 +41,10 @@ public class OccursWithin extends BinarySeqOperation {
 			occurs = true;
 		}
 
+	}
+	
+	public boolean getOccurrence() {
+		return this.occurs;
 	}
 
 	public String toString() {
