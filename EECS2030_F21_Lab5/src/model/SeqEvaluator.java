@@ -21,6 +21,11 @@ public abstract class SeqEvaluator {
 			this.seqOps[this.noso] = new SumsOfPrefixes(seq1);
 			this.noso ++;
 			
+		} else if (operation.equals("op:occursWithin")) {
+
+			this.seqOps[this.noso] = new OccursWithin(seq1, seq2);
+			this.noso ++;
+			
 		}
 		
 	}

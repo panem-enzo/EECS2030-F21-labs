@@ -6,6 +6,7 @@ public class ConcatAll extends SeqEvaluator {
 
 	public ConcatAll(int maxSeqOps) {
 		super(maxSeqOps);
+		
 	}
 
 	private int[] getSeq(SeqOperation seqOp) {
@@ -34,7 +35,18 @@ public class ConcatAll extends SeqEvaluator {
 	}
 
 	public String toString() {
-
+		
+		int invalidOps = 0;
+		for (int i = 0; i < this.noso; i ++) {
+			if (!(this.seqOps[i] instanceof Projection || this.seqOps[i] instanceof SumsOfPrefixes)) {
+				invalidOps ++;
+			}
+		}
+		
+		if (invalidOps > 0) {
+			return String.format("Concat cannot be evaluated due to %d incompatile operations.", invalidOps);
+		}
+		
 		int numElements = 0;
 		for (int i = 0; i < this.noso; i ++) {
 			numElements += getSeqOpLength(this.seqOps[i]);
